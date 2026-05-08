@@ -5,48 +5,44 @@ class Program
     static void Main(string[] args)
     {
         string playAgain = "yes";
-        
+
         while (playAgain == "yes")
         {
-            // Generate Random magic number//
-            Random randomGenerator = new Random();
-            int number =randomGenerator.Next(1, 100);
-
-            // Ask the user for their guess//
-            Console.Write("What is your guess? ");
-            string guess = Console.ReadLine();
-            int userGuess = int.Parse(guess);
-
-            // Keep track of the number of guesses//
-            int guessCount = 1;
-
-
-            // Compare the user's guess to the magic number and provide untill guessed right//
-            while (userGuess != number)
+            
+            // Generate random number//
+            Random randomGeneretor = new Random();
+            int number = randomGeneretor.Next(1, 100);
+            int guessNumber = -1;
+             // Track entry times//
+            int entry = 1;
+            
+            while (guessNumber != number)
             {
-                if (userGuess > number)
-                {
-                    Console.WriteLine("Lower");
-                }
-                else if (userGuess < number)
+                // Ask user to guess the number//
+                Console.Write("What is your guess number ");
+                string guess = Console.ReadLine();
+                guessNumber = int.Parse(guess);
+                
+               
+                if (guessNumber < number)
                 {
                     Console.WriteLine("Higher");
                 }
-
-                // Ask for another guess
-                Console.Write("What is your guess? ");
-                guess = Console.ReadLine();
-                userGuess = int.Parse(guess);
-
-                //guess count//
-                guessCount++;
+                else if (guessNumber > number)
+                {
+                    Console.WriteLine("Lower");
+                }
+                // Count entry times//
+                entry++;
             }
-            Console.WriteLine("You guessed it!");
-            Console.WriteLine($"It took you {guessCount} guesses.");
+            // Print and count
+            Console.WriteLine("Congrats! You have guess it!");
+            Console.WriteLine($"It took you {entry} times");
 
-            // Ask if the user wants to play again//
-            Console.Write("Do you want to play again? (yes/no) ");
+            // Ask the user if they want to play again//
+            Console.Write("Do you want to play again? ");
             playAgain = Console.ReadLine();
         }
+        Console.WriteLine("Thanks for playing!");
     }
-} 
+}
