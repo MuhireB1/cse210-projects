@@ -26,7 +26,7 @@ class Program
         }
         
         // Calculate sum//
-        int total = numbersList.Sum();
+        double total = numbersList.Sum();
         Console.WriteLine($"The sum is {total}");
         //compute Average//
         double average = total / count;
