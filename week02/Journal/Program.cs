@@ -48,12 +48,14 @@ class Program
             {
                 Console.Write("Enter filename to save to: ");
                 journal.SaveToFile(Console.ReadLine());
+                Console.WriteLine($"\n saving to file...");
             }
             else if (userChoice == 4)
             {
                 Console.Write("Enter Filename to load from: ");
                 journal.LoadFromFile(Console.ReadLine());
-                
+                Console.WriteLine($"\n loading from file...");
+                journal.DisplayAll();
             }
         }
         Console.WriteLine("Quitting the program!...");  

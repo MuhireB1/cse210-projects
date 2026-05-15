@@ -49,11 +49,27 @@ public class Journal
 
     public void LoadFromFile(string filename)
     {
-        // Clear existing entries before loading
+        if (!File.Exists(filename))
+        {
+            Console.WriteLine($"Cannot load: file not found: {filename}");
+            return;
+        }
+
+        string[] lines = File.ReadAllLines(filename);
         _entries.Clear();
-        string[] lines = System.IO.File.ReadAllLines(filename);
+
         foreach (string line in lines)
         {
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                continue;
+            }
+
+            if (line.StartsWith("Date:"))
+            {
+                continue;
+            }
+
             string[] parts = line.Split('|');
             if (parts.Length == 3)
             {
