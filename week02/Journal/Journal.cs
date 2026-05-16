@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System;
+using System.Text.Json;
 
 namespace JournalApp;
 
@@ -29,22 +30,15 @@ public class Journal
 
     public void SaveToFile(string filename)
     {
-        using (StreamWriter outputFile = new StreamWriter(filename))
+        if (_entries.Count == 0)
         {
-            if (_entries.Count != 0)
-            {
-                string dateString = DateTime.Now.ToShortDateString();
-                outputFile.WriteLine($"Date: {dateString}");
-                foreach (Entry entry in _entries)
-                {
-                    outputFile.WriteLine($"{entry._date}|{entry._promptText}|{entry._entryText}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("There is nothing to save");
-            }
+            Console.WriteLine("There is nothing to save");
+            return;
         }
+
+        string json = JsonSerializer.Serialize(_entries, new JsonSerializerOptions { WriteIndented = true });
+        File.WriteAllText(filename, json);
+        Console.WriteLine($"Saved {_entries.Count} entries to {filename}");
     }
 
     public void LoadFromFile(string filename)
@@ -55,27 +49,16 @@ public class Journal
             return;
         }
 
-        string[] lines = File.ReadAllLines(filename);
-        _entries.Clear();
+        string json = File.ReadAllText(filename);
+        List<Entry> entries = JsonSerializer.Deserialize<List<Entry>>(json);
 
-        foreach (string line in lines)
+        if (entries == null)
         {
-            if (string.IsNullOrWhiteSpace(line))
-            {
-                continue;
-            }
-
-            if (line.StartsWith("Date:"))
-            {
-                continue;
-            }
-
-            string[] parts = line.Split('|');
-            if (parts.Length == 3)
-            {
-                Entry entry = new Entry(parts[0], parts[1], parts[2]);
-                _entries.Add(entry);
-            }
+            Console.WriteLine($"No entries found in {filename}");
+            return;
         }
+
+        _entries = entries;
+        Console.WriteLine($"Loaded {_entries.Count} entries from {filename}");
     }
 }

@@ -2,6 +2,7 @@ using System;
 
 namespace JournalApp;
 
+// Added a feature Save or load your document to a database or use a different library or format such as JSON for storage" to exceed requirement //
 class Program
 {
     static void Main(string[] args)
@@ -21,7 +22,7 @@ class Program
             Console.WriteLine("3. Save");
             Console.WriteLine("4. Load");
             Console.WriteLine("5. Exit");
-            
+
 
             // Get user input//
             Console.Write("What would you like to do? ");
@@ -29,7 +30,7 @@ class Program
             int.TryParse(response, out userChoice);
 
             // Condition the output//
-            if (userChoice == 1 )
+            if (userChoice == 1)
             {
                 string choice = prompt.GetRandomPrompt();
                 Console.WriteLine($"\n{choice}");
@@ -46,18 +47,36 @@ class Program
             }
             else if (userChoice == 3)
             {
-                Console.Write("Enter filename to save to: ");
-                journal.SaveToFile(Console.ReadLine());
-                Console.WriteLine($"\n saving to file...");
+                Console.Write("Enter filename to save to (default: journal.json): ");
+                string saveFilename = Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(saveFilename))
+                {
+                    saveFilename = "journal.json";
+                }
+                if (!saveFilename.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    saveFilename += ".json";
+                }
+
+                journal.SaveToFile(saveFilename);
             }
             else if (userChoice == 4)
             {
-                Console.Write("Enter Filename to load from: ");
-                journal.LoadFromFile(Console.ReadLine());
-                Console.WriteLine($"\n loading from file...");
+                Console.Write("Enter filename to load from (default: journal.json): ");
+                string loadFilename = Console.ReadLine()?.Trim();
+                if (string.IsNullOrWhiteSpace(loadFilename))
+                {
+                    loadFilename = "journal.json";
+                }
+                if (!loadFilename.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                {
+                    loadFilename += ".json";
+                }
+
+                journal.LoadFromFile(loadFilename);
                 journal.DisplayAll();
             }
         }
-        Console.WriteLine("Quitting the program!...");  
+        Console.WriteLine("Quitting the program!...");
     }
 }

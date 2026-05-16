@@ -1,21 +1,25 @@
 public class Entry
 {   // Member variables to define Entry class responsibility
-    public string _date;
-    public string _promptText;
-    public string _entryText;
+    public string Date { get; set; }
+    public string PromptText { get; set; }
+    public string EntryText { get; set; }
+
+    public Entry()
+    {
+    }
 
     // Constructor to easily create a new entry
     public Entry(string date, string prompt, string entry)
     {
-        _date = date;
-        _promptText = prompt;
-        _entryText = entry;
+        Date = date;
+        PromptText = prompt;
+        EntryText = entry;
     }
 
     // Functions to display   
     public void Display()
     {
-        Console.WriteLine($"Date: {_date} - Prompt: {_promptText}");
-        Console.WriteLine($"{_entryText}\n");
+        Console.WriteLine($"Date: {Date} - Prompt: {PromptText}");
+        Console.WriteLine($"{EntryText}\n");
     }
 }
