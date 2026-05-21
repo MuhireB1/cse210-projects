@@ -1,5 +1,5 @@
 using System;
-
+// Had my program work with a library of scriptures(6) rather than a single one. Choosesgit scriptures at random to present to the user.
 class Program
 {
     static void Main(string[] args)
