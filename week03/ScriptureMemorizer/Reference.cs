@@ -1,22 +1,20 @@
 public class Reference
 {
-    // This class stores scripture reference
-    // Attributes
+    // This program will display scripture text
+    // Member Attributes
     private string _book;
     private int _chapter;
     private int _verse;
     private int _endVerse;
 
-    // Constructor for single verse
+    // Constructor
     public Reference(string book, int chapter, int verse)
     {
         _book = book;
         _chapter = chapter;
         _verse = verse;
-        _endVerse = 0;
+        _endVerse = 0; // Default value for endVerse when not provided
     }
-
-    // constructor for multiple verses
     public Reference(string book, int chapter, int verse, int endVerse)
     {
         _book = book;
@@ -24,8 +22,7 @@ public class Reference
         _verse = verse;
         _endVerse = endVerse;
     }
-
-    // Accessors
+    // Accessorrs and mutators
     public string GetBook()
     {
         return _book;
@@ -42,7 +39,6 @@ public class Reference
     {
         return _endVerse;
     }
-    // Mutators
     public void SetBook(string book)
     {
         _book = book;
@@ -60,15 +56,16 @@ public class Reference
         _endVerse = endVerse;
     }
 
-    // class function
+    // Class Functions
     public string GetDisplayText()
     {
-        if (_endVerse == 0)
+        if (_endVerse > 0)
         {
-            return $"{_book} {_chapter}: {_verse}";
+            return $"{_book} {_chapter}:{_verse}-{_endVerse}";
         }
         else
-        return $"{_book} {_chapter}: {_verse}-{_endVerse}";
+        {
+            return $"{_book} {_chapter}:{_verse}";
+        }
     }
-
 }
