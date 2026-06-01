@@ -1,23 +1,23 @@
 public class Address
 {
-    private string _street;
+    private string _Street;
     private string _city;
     private string _state;
     private string _country;
 
-    // Constructor
-    public Address(string street, string city, string state, string country)
+    // constructor
+    public Address(string Street, string city, string state, string country)
     {
-        _street = street;
+        _Street = Street;
         _city = city;
         _state = state;
         _country = country;
     }
 
-    //Getters and setters
+    // Mutators and accessors
     public string GetStreet()
     {
-        return _street;
+        return _Street;
     }
     public string GetCity()
     {
@@ -31,9 +31,9 @@ public class Address
     {
         return _country;
     }
-    public void SetStreet(string street)
+    public void SetStreet(string Street)
     {
-        _street = street;
+        _Street = Street;
     }
     public void SetCity(string city)
     {
@@ -48,9 +48,20 @@ public class Address
         _country = country;
     }
 
-    // Member Functions
+    // Member Functions to display address information
+    public void DisplayAddress()
+    {
+        Console.WriteLine($"{_Street}, {_city}, {_state}, {_country}\n");
+    }
+
+    public override string ToString()
+    {
+        return $"{_Street}, {_city}, {_state}, {_country}";
+    }
+
+    // Function to determine whether the address is from USA or not
     public bool IsFromUSA()
     {
-        return _country == "USA";
+        return _country.ToLower() == "usa";
     }
 }

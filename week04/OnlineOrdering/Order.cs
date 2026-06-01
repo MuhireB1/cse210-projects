@@ -1,64 +1,77 @@
-using System;
-using System.Collections.Generic;
-
-class Order
+public class Order
 {
-    private List<Product> products;
-    private string orderId;
-    private Customer customer;
+    private List<Product> _product;
+    private List<Customer> _customer;
 
-    public Order(string orderId, Customer customer)
+    // Constructor
+    public Order(List<Product> product, List<Customer> customer)
     {
-        this.orderId = orderId;
-        this.customer = customer;
-        this.products = new List<Product>();
+        _product = product;
+        _customer = customer;
+    }
+    
+    // Getters and setters
+    public List<Product> GetProduct()
+    {
+        return _product;
+    }
+    public List<Customer> GetCustomer()
+    {
+        return _customer;
+    }
+    public void SetProduct(List<Product> product)
+    {
+        _product = product;
+    }
+    public void SetCustomer(List<Customer> customer)
+    {
+        _customer = customer;
     }
 
-    public void AddProduct(Product product)
+    // Function to return total order cost
+    public double TotalOrderCost()
     {
-        products.Add(product);
+        double totalCost = 0;
+        foreach (Product product in _product)
+        {
+            totalCost += product.GetTotalPrice();
+        }
+        return totalCost;
     }
-
-    public double GetShippingCost()
+    
+    // Function to calculate the shipping cost
+    public double ShippingCost()
     {
-        if (customer.GetAddress().IsFromUSA())
+        double shippingCost = 0;
+        foreach (Customer customer in _customer)
         {
-            return 5.00;
+            if (customer.IsFromUSA())
+            {
+                shippingCost += 5.00;
+            }
+            else
+            {
+                shippingCost += 35.00;
+            }
         }
-        else
+        return shippingCost;
+
+    }
+    
+
+    // Function to determine packing label
+    public void PackingLabel()
+    {
+        foreach (Product product in _product)
         {
-            return 35.00;
+            Console.WriteLine($"Product Name: {product.GetName()} \nQuantity: {product.GetQuantity()}\nProduct ID: {product.GetProductId()} \nOrder Total: ${product.GetTotalPrice()} \nShipping Cost: ${ShippingCost()}");
         }
     }
-
-    public double GetOrderTotal()
+    public void ShippingLabel()
     {
-        double total = 0;
-
-        foreach (Product product in products)
+        foreach(Customer customer in _customer)
         {
-            total += product.GetTotalCost();
+            Console.WriteLine($"Customer Name: {customer.GetName()} \n{customer.GetAddress()} \nTotal Order Cost: ${TotalOrderCost() + ShippingCost()}");
         }
-
-        total += GetShippingCost();
-
-        return total;
-    }
-
-    public void DisplayOrderSummary()
-    {
-        Console.WriteLine($"Order: {orderId}");
-        Console.WriteLine($"Customer: {customer.GetName()}");
-
-        foreach (Product product in products)
-        {
-            Console.WriteLine(
-                $"{product.GetName()} (ID: {product.GetProductId()}) - " +
-                $"${product.GetPrice():F2} x {product.GetQuantity()} = ${product.GetTotalCost():F2}"
-            );
-        }
-
-        Console.WriteLine($"Shipping Cost: ${GetShippingCost():F2}");
-        Console.WriteLine($"Order Total: ${GetOrderTotal():F2}");
     }
 }

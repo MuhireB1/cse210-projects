@@ -1,51 +1,56 @@
-using System;
-
-class Product
+public class Product
 {
-    private string name;
-    private string productId;
-    private double price;
-    private int quantity;
+    private string _name;
+    private int _productId;
+    private double _price;
+    private int _quantity;
 
-    public Product(string name, string productId, double price, int quantity)
+    // Constructor
+    public Product(string name, int productId, double price, int quantity)
     {
-        this.name = name;
-        this.productId = productId;
-        this.price = price;
-        this.quantity = quantity;
+        _name = name;
+        _productId = productId;
+        _price = price;
+        _quantity = quantity;
     }
 
+    // Getters and setters
     public string GetName()
     {
-        return name;
+        return _name;
     }
-
-    public string GetProductId()
+    public int GetProductId()
     {
-        return productId;
+        return _productId;
     }
-
     public double GetPrice()
     {
-        return price;
+        return _price;
     }
-
     public int GetQuantity()
     {
-        return quantity;
+        return _quantity;
+    }
+    public void SetName(string name)
+    {
+        _name = name;
+    }
+    public void SetProductId(int productId)
+    {
+        _productId = productId;
+    }
+    public void SetPrice(double price)
+    {
+        _price = price;
+    }
+    public void SetQuantity(int quantity)
+    {
+        _quantity = quantity;
     }
 
-    public double GetTotalCost()
+    // Member Functions
+    public double GetTotalPrice()
     {
-        return price * quantity;
-    }
-
-    public void DisplayProductInfo()
-    {
-        Console.WriteLine($"Product: {name}");
-        Console.WriteLine($"Product ID: {productId}");
-        Console.WriteLine($"Price per Unit: ${price:F2}");
-        Console.WriteLine($"Quantity: {quantity}");
-        Console.WriteLine($"Total Cost: ${GetTotalCost():F2}");
+        return _price * _quantity;
     }
 }

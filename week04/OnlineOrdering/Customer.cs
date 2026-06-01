@@ -1,51 +1,36 @@
 public class Customer
 {
-    // Attributes
     private string _name;
     private Address _address;
-    private string _email;
 
     // Constructor
-    public Customer(string name, Address address, string email)
+    public Customer(string name, Address address)
     {
         _name = name;
         _address = address;
-        _email = email;
     }
 
-    // Mutators and Accessors
+    // Getters and setters
     public string GetName()
     {
         return _name;
-    }
-    public void SetName(string name)
-    {
-        _name = name;
     }
     public Address GetAddress()
     {
         return _address;
     }
-    public void SetAddress(Address address)
+    public void SetName(string name)
     {
-        _address = address;
+        _name = name;
     }
-    public string GetEmail()
+    public void SetAddress(Address Address)
     {
-        return _email;
-    }
-    public void SetEmail(string email)
-    {
-        _email = email;
+        _address = Address;
     }
 
-    // Methods
-    public string GetCountryStatus()
+    // Member Function to determine if the customer is from USA
+    public bool IsFromUSA()
     {
-        if (_address.IsFromUSA())
-        {
-            return "Customer is from USA";
-        }
-        return "Customer is not from USA";
+        return _address.IsFromUSA();
     }
 }

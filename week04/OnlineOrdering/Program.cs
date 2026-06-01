@@ -4,24 +4,27 @@ class Program
 {
     static void Main(string[] args)
     {
-        Address address = new Address(
-    "123 Main St",
-    "New York",
-    "NY",
-    "USA"
-);
+        // Create some products
+        Product product1 = new Product("iPhone15", 101, 1000.00, 2);
+        
+        // Create some addresses
+        Address address = new Address("123 Main St", "New York", "NY", "USA");
 
-Customer customer = new Customer(
-    "John Smith",
-    address,
-    "john@email.com"
-);
+        // Create some customers
+        Customer customer1 = new Customer("John Doe", address);
 
-Order order = new Order("ORD001", customer);
+        // Create an order
+        List<Product> products = new List<Product> { product1 };
 
-order.AddProduct(new Product("Laptop", "P001", 1000, 1));
-order.AddProduct(new Product("Mouse", "P002", 25, 2));
-
-order.DisplayOrderSummary();
-    }
+        // Create a list of customers for the order
+        List<Customer> customers = new List<Customer> { customer1 };
+        Order order1 = new Order(products, customers);
+        // display the order details
+        // Display packing label
+        Console.WriteLine("PACKING LABEL:");
+        order1.PackingLabel();
+        // Display shipping label
+        Console.WriteLine("SHIPPING LABEL:");
+        order1.ShippingLabel();
+    }   
 }
