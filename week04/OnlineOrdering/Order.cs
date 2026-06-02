@@ -1,10 +1,10 @@
 public class Order
 {
     private List<Product> _product;
-    private List<Customer> _customer;
+    private Customer _customer;
 
     // Constructor
-    public Order(List<Product> product, List<Customer> customer)
+    public Order(List<Product> product, Customer customer)
     {
         _product = product;
         _customer = customer;
@@ -15,7 +15,7 @@ public class Order
     {
         return _product;
     }
-    public List<Customer> GetCustomer()
+    public Customer GetCustomer()
     {
         return _customer;
     }
@@ -23,7 +23,7 @@ public class Order
     {
         _product = product;
     }
-    public void SetCustomer(List<Customer> customer)
+    public void SetCustomer(Customer customer)
     {
         _customer = customer;
     }
@@ -43,16 +43,13 @@ public class Order
     public double ShippingCost()
     {
         double shippingCost = 0;
-        foreach (Customer customer in _customer)
+        if (_customer.IsFromUSA())
         {
-            if (customer.IsFromUSA())
-            {
-                shippingCost += 5.00;
-            }
-            else
-            {
-                shippingCost += 35.00;
-            }
+            shippingCost = 5.00;
+        }
+        else
+        {
+            shippingCost = 35.00;
         }
         return shippingCost;
 
@@ -64,14 +61,13 @@ public class Order
     {
         foreach (Product product in _product)
         {
-            Console.WriteLine($"Product Name: {product.GetName()} \nQuantity: {product.GetQuantity()}\nProduct ID: {product.GetProductId()} \nOrder Total: ${product.GetTotalPrice()} \nShipping Cost: ${ShippingCost()}");
+            Console.WriteLine($"Product Name: {product.GetName()} \nQuantity: {product.GetQuantity()}\nProduct ID: {product.GetProductId()} \nOrder Total: ${product.GetTotalPrice()}\n");
         }
     }
     public void ShippingLabel()
-    {
-        foreach(Customer customer in _customer)
-        {
-            Console.WriteLine($"Customer Name: {customer.GetName()} \n{customer.GetAddress()} \nTotal Order Cost: ${TotalOrderCost() + ShippingCost()}");
-        }
-    }
+{
+    Console.WriteLine($"Customer Name: {_customer.GetName()}");
+    Console.WriteLine($"Address: {_customer.GetAddress()}");
+    Console.WriteLine($"Total Order Cost: ${TotalOrderCost() + ShippingCost()}");
+}
 }

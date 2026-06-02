@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
@@ -12,8 +13,6 @@ class Program
         video1.AddComment(comment1);
         video1.AddComment(comment2);
         video1.AddComment(comment3);
-        video1.DisplayVideoDetails();
-        
 
         // Video2
         Video video2 = new Video("Impanvu", "Israel Mbonyi", 1234.45);
@@ -23,8 +22,6 @@ class Program
         video2.AddComment(comment10);
         video2.AddComment(comment20);
         video2.AddComment(comment30);
-        video2.DisplayVideoDetails();
-        
 
         // Video3
         Video video3 = new Video("Let Your Hair Down", "MAGIC", 300.00);
@@ -36,7 +33,12 @@ class Program
         video3.AddComment(comment200);
         video3.AddComment(comment300);
         video3.AddComment(comment400);
-        video3.DisplayVideoDetails();
-        
+
+        List<Video> videos = new List<Video> { video1, video2, video3 };
+
+        foreach (Video video in videos)
+        {
+            video.DisplayVideoDetails();
+        }
     }
 }

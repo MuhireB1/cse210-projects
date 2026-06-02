@@ -22,13 +22,19 @@ public class Video
         comments.Add(comment);
     }
     public void DisplayVideoDetails()
+{
+    Console.WriteLine($"Title: {_title}");
+    Console.WriteLine($"Author: {_author}");
+    Console.WriteLine($"Length: {_length} seconds");
+    Console.WriteLine($"Number of comments: {GetCommentCount()}");
+
+    foreach (Comments comment in comments)
     {
-        Console.WriteLine($"{_title} - {_author} ({_length} seconds)\nGenerated Comments:{comments.Count}");
-        foreach (Comments comment in comments)
-        {
-            comment.DisplayComment();
-        }
+        comment.DisplayComment();
     }
+
+    Console.WriteLine();
+}
     public int GetCommentCount()
     {
         return comments.Count;
